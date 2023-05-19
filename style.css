@@ -1,0 +1,36 @@
+#intro {
+    text-align: center;
+    justify-content: center;
+}
+
+#col {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
+
+#col1 {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
+
+#col2 {
+    margin-left: 46%;
+}
+
+button {
+    margin-bottom: 100px;
+}
+
+#checkScore{
+    display: block;
+}

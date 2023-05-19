@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco con gestione degli eventi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 id="intro">Rispondi alle domande!</h1>
+    <p id="intro">Rispondi correttamente alle 6 domande e ottieni punti!</p>
+    <p id="intro">Clicca su un pulsante qualsiasi per rivelare le domande, dopo che le hai completate tutte puoi controllare il tuo punteggio cliccando sul bottone.</p>
+    <p id="intro">Non riceverai le risposte alle domande nè saprai se sono corrette o sbagliate, potrai solo visualizzare il punteggio finale cliccando il bottone "Controlla il tuo punteggio</p>
+    <h2 id="intro">Ricordati sempre di inviare le domande prima di controllare il tuo punteggio!</h2>
+  
+    <div id="col">
+    </div>
+
+    <div id="col1">
+    </div>
+
+    <div id="col2"> 
+        <button id="controllaPunteggio">Controlla il tuo punteggio</button>
+        <p id="punteggio"></p>
+    </div>
+  
+    <script>
+      let domande = [
+        {testo: "Qual è la capitale della Polonia?", risposta: "Varsavia"},
+        {testo: "Quanti Stati ci sono negli Stati Uniti?", risposta: "50"},
+        {testo: "Qual è il fiume più lungo d'Italia?", risposta: "Po"},
+        {testo: "Chi ha scritto \"Le avventure di Pinocchio\"?", risposta: "Carlo Collodi"}, 
+        {testo: "In quale anno è stata scoperta l'America?", risposta: "1492"}, 
+        {testo: "Qual è stato l'ultimo Paese ad ospitare le Olimpiadi?", risposta: "Tokyo"}
+      ];
+      let risposteInserite = [];
+      let punteggio = 0;
+  
+      for (let i = 0; i < domande.length; i++) {
+        let button = document.createElement("button");
+        button.innerText = "Clicca qui per scoprire una domanda!";
+        button.setAttribute("id", "button")
+        button.dataset.indiceDomanda = i;
+        button.addEventListener("click", mostraDomanda);
+        if (i%2==0) {
+            document.querySelector("#col").appendChild(button);
+        } else {
+            document.querySelector("#col1").appendChild(button);
+        }
+    }
+
+    function mostraDomanda() {
+      let indiceDomanda = this.dataset.indiceDomanda;
+      let testoDomanda = domande[indiceDomanda].testo;
+      let input = document.createElement("input");
+      input.setAttribute("id", "inp" + indiceDomanda);
+      let bottoneInvia = document.createElement("button");
+      bottoneInvia.innerText = "Invia";
+      bottoneInvia.addEventListener("click", () => {
+        controllaDomanda(indiceDomanda);
+      });
+      let divDomanda = document.createElement("div");
+      divDomanda.innerHTML = `<p>${testoDomanda}</p>`;
+      divDomanda.appendChild(input);
+      divDomanda.appendChild(bottoneInvia);
+      this.parentNode.replaceChild(divDomanda, this);
+    }
+
+    function controllaDomanda(indiceDomanda) {
+      let rispostaInserita = document.querySelector("#inp" + indiceDomanda).value;
+      risposteInserite[indiceDomanda] = rispostaInserita;
+      if (rispostaInserita.toLowerCase() === domande[indiceDomanda].risposta.toLowerCase()) {
+            console.log("Risposta corretta!");
+            punteggio++;
+        } else {
+            console.log("Risposta sbagliata. La risposta corretta è: " + domande[indiceDomanda].risposta);
+        }
+
+    let domandeRimanenti = document.querySelectorAll("#domandeRimaste");
+    if (domandeRimanenti.length === 0) {
+  }
+}
+
+document.querySelector("#controllaPunteggio").addEventListener("click", () => {
+  document.querySelector("#punteggio").innerText = "Il tuo punteggio è: " + punteggio + "/" + domande.length;
+});
+</script>
+</body>
+</html>
